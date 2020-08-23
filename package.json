@@ -1,0 +1,74 @@
+{
+  "name": "geolocationproxie",
+  "version": "1.0.0",
+  "description": "ip in location out",
+  "main": "src/server/index.ts",
+  "scripts": {
+    "build": "webpack --mode production",
+    "start": "concurrently \"npm run build\" \"ts-node src/server/index.ts\"",
+    "client": "webpack-dev-server --mode development --devtool inline-source-map --hot",
+    "server": "nodemon src/server/index.ts",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/igorthetigor/geolocprox.git"
+  },
+  "keywords": [
+    "ip",
+    "geolocation"
+  ],
+  "dependencies": {
+    "express": "^4.17.1",
+    "net": "^1.0.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-hot-loader": "^4.12.21",
+    "request": "^2.88.2",
+    "ts-loader": "^8.0.2",
+    "webpack-node-externals": "^2.5.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.11.4",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/plugin-proposal-decorators": "^7.10.5",
+    "@babel/plugin-proposal-object-rest-spread": "^7.11.0",
+    "@babel/polyfill": "^7.10.4",
+    "@babel/preset-env": "^7.11.0",
+    "@babel/preset-react": "^7.10.4",
+    "@babel/preset-typescript": "^7.10.4",
+    "@types/express": "^4.17.7",
+    "@types/react": "^16.9.46",
+    "@types/react-dom": "^16.9.8",
+    "add": "^2.0.6",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.1.0",
+    "babel-polyfill": "^6.26.0",
+    "clean-webpack-plugin": "^3.0.0",
+    "concurrently": "^5.3.0",
+    "css-loader": "^4.2.1",
+    "eslint": "^7.7.0",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-react": "^7.20.6",
+    "file-loader": "^6.0.0",
+    "fork-ts-checker-webpack-plugin": "^5.1.0",
+    "html-webpack-plugin": "^4.3.0",
+    "nodemon": "^2.0.4",
+    "style-loader": "^1.2.1",
+    "ts-node": "^9.0.0",
+    "typescript": "^4.0.2",
+    "url-loader": "^4.1.0",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0",
+    "yarn": "^1.22.4"
+  },
+  "author": "igor liverant",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/igorthetigor/geolocprox/issues"
+  },
+  "homepage": "https://github.com/igorthetigor/geolocprox#readme"
+}
