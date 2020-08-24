@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    // "module": "commonjs",
     // Target latest version of ECMAScript.
     "target": "es6",
     // Search under node_modules for non-relative imports.

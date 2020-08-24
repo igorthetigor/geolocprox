@@ -1,26 +1,29 @@
-import React, {Component} from 'react';
+import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
 
 import { WelcomeHeader } from './Header';
+import ContentBody from './body/ContentBody';
 
-export default class App extends Component {
-  state:any = { username: null };
+const App: React.FC = () => {
 
-  componentDidMount() {
-    fetch('/api/getUsername')
-      .then(res => res.json())
-      .then(user => this.setState({ username: user.username }));
-  }
-
-  render() {
-    const { username } = this.state;
-    return (
-      <div>
-        <WelcomeHeader />
-        {username ? <h1>{`Hello ${username}`}</h1> : <h1>Loading.. please wait!</h1>}
-      </div>
-    );
-  }
+  const [username, setUsername] = useState<string | null>(null);
+  useEffect(
+    () => {
+      fetch('/api/getUsername')
+        .then(res => res.json())
+        .then(user => setUsername( user.username ));
+    }
+  ), [];
+  
+  return (
+    <div>
+      <WelcomeHeader />
+      {username ? <h1>{`Hello ${username}`}</h1> : <h1>Loading.. please wait!</h1>}
+      <ContentBody />
+    </div>
+  );
 }
+
+export default App;
 
 ReactDOM.render(<App />, document.getElementById('root'));
