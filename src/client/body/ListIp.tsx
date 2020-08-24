@@ -14,10 +14,6 @@ const IpList = (props:Props) => {
       <h3>dont by shy!</h3>
     );
   }
-  // for (const item in list) {
-  //   console.log(item + ':' + list[item].ip)
-  //   console.log(item + ':' + list[item].country)
-  // }
   const ipList = props.list.map( item => {
     keyCounter += 1;
     return (

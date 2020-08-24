@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import IpList from './ListIp';
 import { Expressanswer } from '../../Types';
 import InputIp from './InputIp';
@@ -8,16 +8,25 @@ const FetchData = () => {
   const [ip, setIp] = useState<string | ''>('');
   const [list, setList] = useState<Array<Expressanswer>>([]);
 
+  useEffect(() => {
+
+  },[list]);
+
   const handleInput = (e: string): void => {
     setIp(e);
   };
 
   const confirmInput = ():void => {
-    console.log(ip);
     fetchApi(ip);
   };
 
-  const fetchApi = async (ip: string): Promise<void> => {
+  const mergeIps = (a: Array<Expressanswer>, b: Expressanswer): Array<Expressanswer> => {
+    const result: Array<Expressanswer> = a;
+    result.push(b);
+    return result;    
+  }
+
+  const fetchApi = (ip: string): void => {
     console.log(ip);
     fetch('/api/proxip', {
       method: 'POST',
@@ -28,9 +37,7 @@ const FetchData = () => {
     })
     .then(res => res.json())
     .then(res => {
-      console.log('resLOOKUP', {...res.iplookup})
-      console.log('list prev', {...list})
-      setList([...list] + {...res.iplookup})
+      setList(mergeIps(list, res.iplookup));
     });
   };
   console.log(list);
