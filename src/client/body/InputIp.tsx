@@ -1,20 +1,21 @@
 import React,{useState} from 'react';
 
+
 interface Props {
   ip: string;
-  handleInput: (e: string) => void;
-  confirmInput: () => void;
+  onChange: (e: React.FormEvent<HTMLInputElement>) => (void);
+  onClick: () => void;
 }
 
 const InputIp = (props: Props) => {
   return (
     <div>
       <button>myIP</button>
-      <input placeholder='127.0.0.1' value={props.ip} onChange={(e: any): void => {
-        props.handleInput(e.target.value);
-      }}
+      <input placeholder='127.0.0.1' value={props.ip} onChange={
+        props.onChange
+      }
       />
-      <button onClick={() => props.confirmInput()} >Check this!</button>
+      <button onClick={props.onClick} >Check this!</button>
     </div>
   );
 };

@@ -2,7 +2,7 @@ const express = require('express');
 import {Request, Response} from "express";
 const router = express.Router();
 const axios = require('axios');
-import { Expressanswer } from '../../Types';
+import { IExpressanswer } from '../../Types';
 
 interface Serverdata {
   status: string;
@@ -17,8 +17,7 @@ const fetchIp = async (ip: string): Promise<Serverdata> => {
 }
 
 router.post('/', async (req : Request, res: Response, next: any): Promise<any> => {
-  const iplookup: Expressanswer = {ip:'', country: '', countryCode: ''};
-  console.log(req.body);
+  const iplookup: IExpressanswer = {ip:'', country: '', countryCode: ''};
   await fetchIp(req.body.ip)
   .then(res => {
     if (res.status === 'fail') {

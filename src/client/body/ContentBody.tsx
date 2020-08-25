@@ -1,31 +1,65 @@
-import React, { useState, Suspense} from 'react';
-// import InputIp from './InputIp';
-import FetchData from './FetchData';
-// import { Props } from '../../Types';
+import React, { useEffect, useState} from 'react';
+import InputIp from './InputIp';
+import IpList from './ListIp';
+import axios, { AxiosResponse } from 'axios';
 
-// const FetchData = React.lazy(() => import('./FetchData'));
+import { IExpressanswer } from '../../Types';
 
 const ContentBody: React.FC = () => {
+  const [ip, setIp] = useState<string | ''>('');
+  const [ipList, setIpList] = useState<IExpressanswer[] | []>([]);
 
-  // const [ip, setIp] = useState<string | ''>('');
+  const [isLoading, setLoading] = useState<boolean>(false);
+  const helperFunc = (a: IExpressanswer[], b: IExpressanswer): IExpressanswer[] => {
+    const result: IExpressanswer[] = a;
+    result.unshift(b);
+    return result;  
+  };
 
-  // const handleInput = (e: string): void => {
-  //   setIp(e);
-  // };
+  let liKey:number = 0;
+  const someKey = (): number => {
+    liKey += 1;
+    return liKey;
+  };
 
-  // const confirmInput = ():void => {
-  //   console.log(ip);
-  //   fetchApi(ip);
-  // };
+  const fetchData = async () => {
+    setLoading(true);
 
-  // const props: Props = {ip: ip, handleInput: handleInput, confirmInput: confirmInput};
+    await fetch('/api/proxip', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ip: ip}),
+    })
+    .then(res => res.json())
+    .then(res => {
+      setIpList(helperFunc(ipList, res.iplookup))
+    });;
+    setLoading(false);
+  };
+
+  console.log(Array.isArray(ipList));
+  console.log(ipList);
 
   return (
     <div>
-      {/* <InputIp props={props} /> */}
-      <Suspense fallback={<div>loading...</div>}>
-        <FetchData />
-      </Suspense>
+      <InputIp
+        ip={ip}
+        onChange={(e: React.FormEvent<HTMLInputElement>):void => setIp(e.currentTarget.value)}
+        onClick={fetchData}
+      />
+      {isLoading? (
+        <div>Loading...</div>
+      ) : (
+        <ul>
+          {(ipList as Array<IExpressanswer>).map((item: IExpressanswer) => {
+            return (<IpList key={someKey()} {...item} />);
+          })}
+        </ul>
+      )
+
+      }
     </div>
   );
 };
