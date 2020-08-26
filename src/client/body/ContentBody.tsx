@@ -50,7 +50,7 @@ const ContentBody: React.FC = () => {
         onClick={fetchData}
       />
       {isLoading? (
-        <div>Loading...</div>
+        <div>loading...</div>
       ) : (
         <ul>
           {(ipList as Array<IExpressanswer>).map((item: IExpressanswer) => {
